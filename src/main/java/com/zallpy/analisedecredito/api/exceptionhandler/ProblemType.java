@@ -17,7 +17,7 @@ public enum ProblemType {
 	private String uri;
 	
 	ProblemType(String path, String title) {
-		this.uri = "https://analisedecredito.com.br" + path;
+		this.uri = "http://localhost:8080" + path;
 		this.title = title;
 	}
 	

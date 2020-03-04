@@ -5,14 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.zallpy.analisedecredito.api.assembler.PropostaInputDisassembler;
 import com.zallpy.analisedecredito.api.assembler.PropostaModelAssembler;
@@ -20,37 +13,45 @@ import com.zallpy.analisedecredito.api.model.PropostaModel;
 import com.zallpy.analisedecredito.api.model.input.PropostaInput;
 import com.zallpy.analisedecredito.api.openapi.controller.PropostaControllerOpenApi;
 import com.zallpy.analisedecredito.domain.model.Proposta;
-import com.zallpy.analisedecredito.domain.repository.PropostaRepository;
 import com.zallpy.analisedecredito.domain.service.CadastroPropostaService;
 
-import java.util.List;
 
 @RestController
-@RequestMapping(value = "/propostas", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "v1/propostas", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PropostaController implements PropostaControllerOpenApi {
-    @Autowired
-    private PropostaRepository propostaRepository;
+
+    private final CadastroPropostaService cadastroProposta;
+
+    private final PropostaModelAssembler propostaModelAssembler;
+
+    private final PropostaInputDisassembler propostaInputDisassembler;
 
     @Autowired
-    private CadastroPropostaService cadastroProposta;
-
-    @Autowired
-    private PropostaModelAssembler propostaModelAssembler;
-
-    @Autowired
-    private PropostaInputDisassembler propostaInputDisassembler;
-
-//    @Override
-    @GetMapping
-    public List<PropostaModel> listar() {
-        List<Proposta> todasPropostas = propostaRepository.findAll();
-
-        return propostaModelAssembler.toCollectionModel(todasPropostas);
+    public PropostaController(CadastroPropostaService cadastroProposta, PropostaModelAssembler propostaModelAssembler, PropostaInputDisassembler propostaInputDisassembler) {
+        this.cadastroProposta = cadastroProposta;
+        this.propostaModelAssembler = propostaModelAssembler;
+        this.propostaInputDisassembler = propostaInputDisassembler;
     }
+
+    @GetMapping
+    public PropostaModel listar() {
+        Proposta propostas = cadastroProposta.listarTodas();
+
+        return propostaModelAssembler.toModel(propostas);
+    }
+
     @Override
     @GetMapping("/{propostaId}")
-    public PropostaModel buscar(@PathVariable Long propostaId) {
+    public PropostaModel buscarPorId(@PathVariable Long propostaId) {
         Proposta proposta = cadastroProposta.buscarOuFalhar(propostaId);
+
+        return propostaModelAssembler.toModel(proposta);
+    }
+
+    @Override
+    @GetMapping("/por-cpf")
+    public PropostaModel buscarPorCpf(@RequestParam("cpf") String cpf) {
+        Proposta proposta = cadastroProposta.buscarPorCpfOuFalhar(cpf);
 
         return propostaModelAssembler.toModel(proposta);
     }

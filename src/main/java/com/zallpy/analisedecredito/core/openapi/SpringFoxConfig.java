@@ -49,7 +49,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 
 	@Bean
 	public Docket apiDocket() {
-		var typeResolver = new TypeResolver();
+		TypeResolver typeResolver = new TypeResolver();
 		
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()

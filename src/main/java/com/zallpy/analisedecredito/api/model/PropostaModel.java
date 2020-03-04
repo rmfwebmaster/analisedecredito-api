@@ -9,7 +9,7 @@ import lombok.Setter;
 public class PropostaModel {
 
     @ApiModelProperty(example = "1")
-    private Long propostaId;
+    private Long id;
 
     @ApiModelProperty(example = "Rodrigo Medeiros")
     private String nome;

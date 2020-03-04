@@ -1,8 +1,6 @@
 package com.zallpy.analisedecredito.domain.model;
 
 import java.time.OffsetDateTime;
-//import java.util.ArrayList;
-//import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +19,7 @@ public class Proposta {
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long propostaId;
+    private Long id;
 
     @Column(nullable = false)
     private String nome;
@@ -57,5 +55,5 @@ public class Proposta {
     private OffsetDateTime dataAtualizacao;
 
     @Column(nullable = false)
-    private OffsetDateTime dataCriacao;
+    private OffsetDateTime dataCadastro;
 }
