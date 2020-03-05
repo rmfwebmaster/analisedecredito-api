@@ -32,7 +32,7 @@ public class PropostaInput {
     @NotBlank
     private String sexo;
 
-    @ApiModelProperty(example = "casado", required = true)
+    @ApiModelProperty(example = "casado(a)", required = true)
     @NotBlank
     private String estadoCivil;
 

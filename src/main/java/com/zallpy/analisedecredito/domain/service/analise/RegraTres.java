@@ -16,7 +16,7 @@ public class RegraTres implements RegraDeCreditoInterface {
         BigDecimal renda = proposta.getRenda();
 
         return idade >= 16 && renda.intValue() >= 5000 && renda.intValue() <= 8000 && dependentes >= 3 &&
-                dependentes <= 5 && estadoCivil == "casado(a)";
+                dependentes <= 5 && estadoCivil.equals("casado(a)");
     }
 
     @Override

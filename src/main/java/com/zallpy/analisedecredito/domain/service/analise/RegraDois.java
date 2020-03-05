@@ -15,7 +15,7 @@ public class RegraDois implements RegraDeCreditoInterface {
         String estadoCivil = proposta.getEstadoCivil();
         BigDecimal renda = proposta.getRenda();
 
-        return idade >= 16 && renda.intValue() > 1000 && renda.intValue() <= 2500 && estadoCivil == "solteiro(a)" && dependentes.equals(0);
+        return idade >= 16 && renda.intValue() > 1000 && renda.intValue() <= 2500 && estadoCivil.equals("solteiro(a)") && dependentes.equals(0);
     }
 
     @Override

@@ -24,7 +24,7 @@ public class PropostaModel {
     @ApiModelProperty(example = "M")
     private String sexo;
 
-    @ApiModelProperty(example = "casado")
+    @ApiModelProperty(example = "casado(a)")
     private String estadoCivil;
 
     @ApiModelProperty(example = "MA")

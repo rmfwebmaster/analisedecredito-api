@@ -15,7 +15,7 @@ public class RegraQuatro implements RegraDeCreditoInterface {
         String estadoCivil = proposta.getEstadoCivil();
         BigDecimal renda = proposta.getRenda();
 
-        return idade >= 16 && renda.intValue() == 8000 && dependentes == 3 && estadoCivil == "casado(a)";
+        return idade >= 16 && renda.intValue() == 8000 && dependentes == 3 && estadoCivil.equals("casado(a)");
     }
 
     @Override

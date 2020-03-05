@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zallpy.analisedecredito.domain.exception.PropostaNaoEncontradaException;
+import com.zallpy.analisedecredito.domain.exception.PropostaJaCadastradaException;
 
 import com.zallpy.analisedecredito.domain.model.Proposta;
 import com.zallpy.analisedecredito.domain.repository.PropostaRepository;
@@ -30,12 +31,13 @@ public class CadastroPropostaService {
         Optional<Proposta> propostaAtual = propostaRepository.findByCpf(proposta.getCpf());
 
         if (propostaAtual.isPresent()) {
-            throw new PropostaNaoEncontradaException("Já existe proposta cadastrada com o CPF '"+ proposta.getCpf() +"'");
+            throw new PropostaJaCadastradaException("Já existe proposta cadastrada com o CPF '"+ proposta.getCpf() +"'");
         }
 
         proposta.setId(null);
-        return AnaliseDeCredito.analiseDeCredito(proposta);
-//        return propostaRepository.save(proposta);
+
+        AnaliseDeCredito.analiseDeCredito(proposta);
+        return propostaRepository.save(proposta);
 
     }
 

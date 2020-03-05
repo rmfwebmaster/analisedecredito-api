@@ -17,7 +17,7 @@ public class RegraSete implements RegraDeCreditoInterface {
         BigDecimal renda = proposta.getRenda();
 
         return idade >= 16 && renda.intValue() >= 1500 && renda.intValue() <= 2000 && dependentes >= 1 &&
-                dependentes < 3 && (estadoCivil == "divorciado(a)" || estadoCivil == "viúvo(a)");
+                dependentes <= 3 && (estadoCivil.equals("divorciado(a)") || estadoCivil.equals("viúvo(a)"));
     }
 
     @Override

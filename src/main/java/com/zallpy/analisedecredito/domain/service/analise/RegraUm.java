@@ -10,13 +10,13 @@ public class RegraUm implements RegraDeCreditoInterface {
 
     @Override
     public Boolean RegraAplicavel(Proposta proposta) {
+
         Long idade = proposta.getIdade();
         String estadoCivil = proposta.getEstadoCivil();
         Long dependentes = proposta.getDependentes();
         BigDecimal renda = proposta.getRenda();
 
-        return idade >= 16 && renda.intValue() >= 1000 && renda.intValue() <= 2500 && dependentes <= 2 && estadoCivil == "solteiro(a)";
-
+        return idade >= 16 && renda.intValue() >= 1000 && renda.intValue() <= 2500 && dependentes <= 2  && estadoCivil.equals("solteiro(a)");
     }
 
     @Override
