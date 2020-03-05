@@ -9,7 +9,6 @@ import com.zallpy.analisedecredito.domain.model.Proposta;
 
 @Repository
 public interface PropostaRepository extends JpaRepository<Proposta, Long> {
-    Optional<Proposta> findById(Long propostaId);
     Optional<Proposta> findByCpf(String cpf);
     List<Proposta> findAll();
 }

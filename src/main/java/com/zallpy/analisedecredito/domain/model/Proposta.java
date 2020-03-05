@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -43,17 +45,14 @@ public class Proposta {
     private Long dependentes;
 
     @Column(nullable = false)
-    private Long renda;
-
-    @Column(nullable = true)
-    private Boolean resultadoAnalise;
-
-    @Column(nullable = true)
-    private String limite;
-
-    @Column(nullable = true)
-    private OffsetDateTime dataAtualizacao;
+    private BigDecimal renda;
 
     @Column(nullable = false)
+    private Boolean resultadoAnalise;
+
+    @Column(nullable = false)
+    private String limite;
+
+    @CreationTimestamp
     private OffsetDateTime dataCadastro;
 }

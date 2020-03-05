@@ -15,6 +15,8 @@ import com.zallpy.analisedecredito.api.openapi.controller.PropostaControllerOpen
 import com.zallpy.analisedecredito.domain.model.Proposta;
 import com.zallpy.analisedecredito.domain.service.CadastroPropostaService;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping(value = "v1/propostas", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -34,23 +36,15 @@ public class PropostaController implements PropostaControllerOpenApi {
     }
 
     @GetMapping
-    public PropostaModel listar() {
-        Proposta propostas = cadastroProposta.listarTodas();
+    public List<PropostaModel> listar() {
+        List<Proposta> propostas = cadastroProposta.listarTodas();
 
-        return propostaModelAssembler.toModel(propostas);
+        return propostaModelAssembler.toCollectionModel(propostas);
     }
 
     @Override
-    @GetMapping("/{propostaId}")
-    public PropostaModel buscarPorId(@PathVariable Long propostaId) {
-        Proposta proposta = cadastroProposta.buscarOuFalhar(propostaId);
-
-        return propostaModelAssembler.toModel(proposta);
-    }
-
-    @Override
-    @GetMapping("/por-cpf")
-    public PropostaModel buscarPorCpf(@RequestParam("cpf") String cpf) {
+    @GetMapping("/por-cpf/{cpf}")
+    public PropostaModel buscarPorCpf(@PathVariable String cpf) {
         Proposta proposta = cadastroProposta.buscarPorCpfOuFalhar(cpf);
 
         return propostaModelAssembler.toModel(proposta);
@@ -64,17 +58,6 @@ public class PropostaController implements PropostaControllerOpenApi {
         proposta = cadastroProposta.salvar(proposta);
 
         return propostaModelAssembler.toModel(proposta);
-    }
-
-    @Override
-    @PutMapping("/{propostaId}")
-    public PropostaModel atualizar(@PathVariable Long propostaId,
-                                  @RequestBody @Valid PropostaInput propostaInput) {
-        Proposta propostaAtual = cadastroProposta.buscarOuFalhar(propostaId);
-        propostaInputDisassembler.copyToDomainObject(propostaInput, propostaAtual);
-        propostaAtual = cadastroProposta.salvar(propostaAtual);
-
-        return propostaModelAssembler.toModel(propostaAtual);
     }
 
 }

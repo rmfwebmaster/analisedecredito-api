@@ -1,11 +1,12 @@
 package com.zallpy.analisedecredito.api.model;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+
+@Data
 public class PropostaModel {
 
     @ApiModelProperty(example = "1")
@@ -33,7 +34,7 @@ public class PropostaModel {
     private Long dependentes;
 
     @ApiModelProperty(example = "3000")
-    private Long renda;
+    private BigDecimal renda;
 
     @ApiModelProperty(example = "true or false")
     private Boolean resultadoAnalise;
@@ -41,4 +42,6 @@ public class PropostaModel {
     @ApiModelProperty(example = "Entre 500 - 1000")
     private String limite;
 
+    @ApiModelProperty(example = "2019-12-01T20:34:04Z")
+    private OffsetDateTime dataCadastro;
 }

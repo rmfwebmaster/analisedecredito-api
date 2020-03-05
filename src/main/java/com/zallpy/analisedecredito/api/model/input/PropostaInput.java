@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Setter
 @Getter
 public class PropostaInput {
@@ -22,29 +24,29 @@ public class PropostaInput {
     private String cpf;
 
     @ApiModelProperty(example = "35", required = true)
-    @NotBlank
+    @NotNull
     @Positive
     private Long idade;
 
     @ApiModelProperty(example = "M", required = true)
-    @NotNull
+    @NotBlank
     private String sexo;
 
     @ApiModelProperty(example = "casado", required = true)
-    @NotNull
+    @NotBlank
     private String estadoCivil;
 
     @ApiModelProperty(example = "MA", required = true)
-    @NotNull
+    @NotBlank
     private String estado;
 
     @ApiModelProperty(example = "1", required = true)
-    @NotBlank
+    @NotNull
     @PositiveOrZero
-    private Long dependetes;
+    private Long dependentes;
 
     @ApiModelProperty(example = "3000", required = true)
-    @NotBlank
+    @NotNull
     @Positive
-    private Long renda;
+    private BigDecimal renda;
 }

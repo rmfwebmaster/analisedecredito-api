@@ -12,8 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -21,9 +20,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.zallpy.analisedecredito.api.exceptionhandler.Problem;
-import com.zallpy.analisedecredito.api.model.PropostaModel;
-import com.zallpy.analisedecredito.api.openapi.model.PropostasModelOpenApi;
-import com.zallpy.analisedecredito.api.openapi.model.PageableModelOpenApi;
 
 import com.fasterxml.classmate.TypeResolver;
 
@@ -32,12 +28,10 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
-import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.ResponseMessage;
-import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -59,18 +53,11 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 				.useDefaultResponseMessages(false)
 				.globalResponseMessage(RequestMethod.GET, globalGetResponseMessages())
 				.globalResponseMessage(RequestMethod.POST, globalPostPutResponseMessages())
-				.globalResponseMessage(RequestMethod.PUT, globalPostPutResponseMessages())
-				.globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
 				.additionalModels(typeResolver.resolve(Problem.class))
 				.ignoredParameterTypes(ServletWebRequest.class,
 						URL.class, URI.class, URLStreamHandler.class, Resource.class,
 						File.class, InputStream.class)
-				.directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
-				.alternateTypeRules(AlternateTypeRules.newRule(
-						typeResolver.resolve(Page.class, PropostaModel.class),
-						PropostasModelOpenApi.class))
-				.apiInfo(apiInfo())
-				.tags(new Tag("Propostas", "Gerencia as propostas"));
+				.apiInfo(apiInfo());
 	}
 	
 	private List<ResponseMessage> globalGetResponseMessages() {
@@ -86,7 +73,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 					.build()
 			);
 	}
-	
+
 	private List<ResponseMessage> globalPostPutResponseMessages() {
 		return Arrays.asList(
 				new ResponseMessageBuilder()
@@ -110,22 +97,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 					.build()
 			);
 	}
-	
-	private List<ResponseMessage> globalDeleteResponseMessages() {
-		return Arrays.asList(
-				new ResponseMessageBuilder()
-					.code(HttpStatus.BAD_REQUEST.value())
-					.message("Requisição inválida (erro do cliente)")
-					.responseModel(new ModelRef("Problema"))
-					.build(),
-				new ResponseMessageBuilder()
-					.code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-					.message("Erro interno no servidor")
-					.responseModel(new ModelRef("Problema"))
-					.build()
-			);
-	}
-	
+
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("AnaliseCRED API")
@@ -139,7 +111,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("swagger-ui.html")
 			.addResourceLocations("classpath:/META-INF/resources/");
-		
+
 		registry.addResourceHandler("/webjars/**")
 			.addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}

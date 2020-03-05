@@ -12,21 +12,12 @@ import io.swagger.annotations.ApiResponses;
 
 @Api(tags = "Proposta")
 public interface PropostaControllerOpenApi {
-    @ApiOperation("Busca uma proposta por código")
+    @ApiOperation("Busca uma proposta por CPF")
     @ApiResponses({
-            @ApiResponse(code = 404, message = "Nenhuma proposta com este código", response = Problem.class)
-    })
-
-    PropostaModel buscarPorId(
-            @ApiParam(value = "Código da proposta", example = "10", required = true)
-                    Long propostaId);
-
-    @ApiOperation("Busca uma proposta por cpf")
-    @ApiResponses({
-            @ApiResponse(code = 404, message = "Nenhuma proposta com este cpf", response = Problem.class)
+            @ApiResponse(code = 404, message = "Nenhuma proposta com este CPF", response = Problem.class)
     })
     PropostaModel buscarPorCpf(
-            @ApiParam(value = "Cpf do cliente", example = "por-cpf?cpf=01307510302", required = true)
+            @ApiParam(value = "Cpf do cliente sem pontuação. Ex: 01307510302", example = "01307510302", required = true)
                     String cpf);
 
     @ApiOperation("Cadastra uma proposta")
@@ -35,18 +26,5 @@ public interface PropostaControllerOpenApi {
     })
     PropostaModel adicionar(
             @ApiParam(name = "corpo", value = "Representação de uma nova proposta", required = true)
-                    PropostaInput propostaInput);
-
-    @ApiOperation("Atualiza uma proposta por ID")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Proposta atualizada"),
-            @ApiResponse(code = 404, message = "Proposta não encontrada", response = Problem.class)
-    })
-    PropostaModel atualizar(
-            @ApiParam(value = "ID de uma proposta", example = "1", required = true)
-                    Long propostaId,
-
-            @ApiParam(name = "corpo", value = "Representação de uma proposta com os novos dados",
-                    required = true)
                     PropostaInput propostaInput);
 }

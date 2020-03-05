@@ -40,17 +40,17 @@ public class Problem {
 	@ApiModelProperty(value = "Lista de objetos ou campos que geraram o erro (opcional)", 
 			position = 30)
 	private List<Object> objects;
-	
+
 	@ApiModel("ObjetoProblema")
 	@Getter
 	@Builder
 	public static class Object {
-		
-		@ApiModelProperty(example = "nome")
+
+		@ApiModelProperty(example = "cpf")
 		private String name;
-		
-		@ApiModelProperty(example = "O nome é obrigatório")
+
+		@ApiModelProperty(example = "O cpf é obrigatório")
 		private String userMessage;
 	}
-	
+
 }

@@ -7,10 +7,9 @@ create table proposta (
 	estado_civil varchar(25) not null,
     estado varchar(2) not null,
 	dependentes bigint not null,
-	renda bigint not null,
+	renda decimal(10,2) not null,
 	resultado_analise boolean not null,
 	limite varchar(100) not null,
-	data_atualizacao datetime null,
 	data_cadastro datetime not null,
 	
 	primary key (id)

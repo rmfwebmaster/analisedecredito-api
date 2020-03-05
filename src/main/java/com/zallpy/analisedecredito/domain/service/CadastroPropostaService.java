@@ -8,8 +8,10 @@ import com.zallpy.analisedecredito.domain.exception.PropostaNaoEncontradaExcepti
 
 import com.zallpy.analisedecredito.domain.model.Proposta;
 import com.zallpy.analisedecredito.domain.repository.PropostaRepository;
+import com.zallpy.analisedecredito.domain.service.analise.AnaliseDeCredito;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -24,12 +26,17 @@ public class CadastroPropostaService {
 
     @Transactional
     public Proposta salvar(Proposta proposta) {
-        return propostaRepository.save(proposta);
-    }
 
-    public Proposta buscarOuFalhar(Long propostaId) {
-        return propostaRepository.findById(propostaId)
-                .orElseThrow(() -> new PropostaNaoEncontradaException(propostaId));
+        Optional<Proposta> propostaAtual = propostaRepository.findByCpf(proposta.getCpf());
+
+        if (propostaAtual.isPresent()) {
+            throw new PropostaNaoEncontradaException("Já existe proposta cadastrada com o CPF '"+ proposta.getCpf() +"'");
+        }
+
+        proposta.setId(null);
+        return AnaliseDeCredito.analiseDeCredito(proposta);
+//        return propostaRepository.save(proposta);
+
     }
 
     public Proposta buscarPorCpfOuFalhar(String cpf) {
@@ -37,7 +44,7 @@ public class CadastroPropostaService {
                 .orElseThrow(() -> new PropostaNaoEncontradaException("Não existe uma proposta para este CPF"));
     }
 
-    public Proposta listarTodas() {
+    public List<Proposta> listarTodas() {
         return propostaRepository.findAll();
     }
 

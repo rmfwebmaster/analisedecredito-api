@@ -7,8 +7,4 @@ public class PropostaNaoEncontradaException extends EntidadeNaoEncontradaExcepti
     public PropostaNaoEncontradaException(String mensagem) {
         super(mensagem);
     }
-
-    public PropostaNaoEncontradaException(Long propostaId) {
-        this(String.format("Não existe uma proposta para o código %d", propostaId));
-    }
 }
