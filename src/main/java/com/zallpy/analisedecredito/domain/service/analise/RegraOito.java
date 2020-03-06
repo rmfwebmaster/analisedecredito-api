@@ -4,9 +4,9 @@ import com.zallpy.analisedecredito.domain.model.Proposta;
 
 import java.math.BigDecimal;
 
-public class RegraTres implements RegraDeCreditoInterface {
+public class RegraOito implements RegraDeCreditoInterface {
 
-    public static final String ENTRE_1000_1500 = "entre 1000 - 1500";
+    public static final String ENTRE_100_500 = "entre 100 - 500";
 
     @Override
     public Boolean RegraAplicavel(Proposta proposta) {
@@ -15,13 +15,12 @@ public class RegraTres implements RegraDeCreditoInterface {
         String estadoCivil = proposta.getEstadoCivil();
         BigDecimal renda = proposta.getRenda();
 
-        return idade.intValue() >= 16 && idade.intValue() <= 61 && renda.intValue() >= 5000 && renda.intValue() <= 8000 && dependentes.intValue() >= 3 &&
-                dependentes.intValue() <= 5 && estadoCivil.equals("casado");
+        return idade.intValue() >= 16 && renda.intValue() > 1000 && renda.intValue() <= 2500 && estadoCivil.equals("solteiro") && dependentes.intValue() > 0 && dependentes.intValue() <= 2;
     }
 
     @Override
     public void AplicarRegra(Proposta proposta) {
         proposta.setResultadoAnalise(true);
-        proposta.setLimite(ENTRE_1000_1500);
+        proposta.setLimite(ENTRE_100_500);
     }
 }

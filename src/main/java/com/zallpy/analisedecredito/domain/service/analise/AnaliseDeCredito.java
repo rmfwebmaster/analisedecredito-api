@@ -8,7 +8,7 @@ import java.util.List;
 public class AnaliseDeCredito {
 
     static List<RegraDeCreditoInterface> regras = Arrays.asList(new RegraUm(), new RegraDois(), new RegraTres(),
-            new RegraQuatro(), new RegraCinco(), new RegraSeis(), new RegraSete());
+            new RegraQuatro(), new RegraCinco(), new RegraSeis(), new RegraSete(), new RegraOito());
 
     public static Proposta analiseDeCredito(Proposta proposta) {
 

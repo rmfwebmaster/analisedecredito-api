@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Getter
 public class PropostaInput {
 
-    @ApiModelProperty(example = "Rodrigo Medeiros", required = true)
+    @ApiModelProperty(example = "Rodrigo", required = true)
     @NotBlank
     private String nome;
 
@@ -32,7 +32,7 @@ public class PropostaInput {
     @NotBlank
     private String sexo;
 
-    @ApiModelProperty(example = "casado(a)", required = true)
+    @ApiModelProperty(example = "casado", required = true)
     @NotBlank
     private String estadoCivil;
 

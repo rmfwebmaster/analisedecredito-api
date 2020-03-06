@@ -13,9 +13,10 @@ public class RegraCinco implements RegraDeCreditoInterface {
 
         Long idade = proposta.getIdade();
         Long dependentes = proposta.getDependentes();
+        String estadoCivil = proposta.getEstadoCivil();
         BigDecimal renda = proposta.getRenda();
 
-        return idade >= 16 && renda.intValue() >= 8000 && renda.intValue() <= 10000 && dependentes >= 0 && dependentes <= 2;
+        return idade.intValue() >= 16 && (estadoCivil.equals("casado") || estadoCivil.equals("viúvo")) && renda.intValue() >= 8000 && renda.intValue() <= 10000 && dependentes.intValue() <= 2;
     }
 
     @Override

@@ -16,7 +16,7 @@ public class RegraUm implements RegraDeCreditoInterface {
         Long dependentes = proposta.getDependentes();
         BigDecimal renda = proposta.getRenda();
 
-        return idade >= 16 && renda.intValue() >= 1000 && renda.intValue() <= 2500 && dependentes <= 2  && estadoCivil.equals("solteiro(a)");
+        return estadoCivil.equals("solteiro") && idade.intValue() >= 16 && renda.intValue() >=1000 && renda.intValue() < 2500 && dependentes.intValue() == 0;
     }
 
     @Override

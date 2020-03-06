@@ -12,7 +12,7 @@ public class PropostaModel {
     @ApiModelProperty(example = "1")
     private Long id;
 
-    @ApiModelProperty(example = "Rodrigo Medeiros")
+    @ApiModelProperty(example = "Rodrigo")
     private String nome;
 
     @ApiModelProperty(example = "01307510302")
@@ -24,7 +24,7 @@ public class PropostaModel {
     @ApiModelProperty(example = "M")
     private String sexo;
 
-    @ApiModelProperty(example = "casado(a)")
+    @ApiModelProperty(example = "casado")
     private String estadoCivil;
 
     @ApiModelProperty(example = "MA")
