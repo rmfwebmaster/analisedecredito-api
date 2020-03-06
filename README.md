@@ -17,7 +17,7 @@ Altere os dados de conexão com o banco em: src/main/resources/flyway.properties
 ```
 
 ```
-mvn clean package 
+./mvnw clean package
 java -jar target/analisedecredito-api-0.0.1-SNAPSHOT.jar
 ```
 
